@@ -1,0 +1,28 @@
+import threading
+import random
+import sys
+import time
+
+tamanho_fila = [30]  #Tamanho da file será igual 
+
+#São três caixas para atendimento 
+semaforo = threading.Semaphore(3)
+
+#Função serve apenas para contar o tempo gasto para cada atendimento 
+def tempo_atendimento():
+    tempo_atendimento = random.randint(3, 10)
+    print(f'A espera para atendimento levará {tempo_atendimento} segundos')
+    time.sleep(tempo_atendimento)
+    print('Atendimento encerrado')
+
+
+#Usando semáforos 
+def cliente():
+    semaforo.acquire()
+    tempo_atendimento()
+    semaforo.release()
+
+
+if __name__=="__main__": 
+    
+    cliente()
